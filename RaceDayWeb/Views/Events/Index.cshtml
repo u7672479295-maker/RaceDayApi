@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RaceDayWeb.Models.EventViewModel>
+@{
+    ViewData["Title"] = "Race Events";
+    var userRole = Context.Session.GetString("userRole");
+
+
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Upcoming Race Events</h2>
+    @if (userRole== "Organiser")
+    {
+        <a asp-action="Create" class="btn btn-success">+ Create New Event</a>
+    }
+</div>
+
+@if (TempData["SuccessMessage"]!= null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+<div class=" row">
+    @if (!Model.Any())
+    {
+        <div class="col-12">
+            <div class="alert alert-info text-bg-danger center">No upcoming events found
+
+            </div>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">@item.EventType</span>
+                            <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text text-muted small mb-2">📍<strong>Location:</strong>
+                            @item.Location<br/>
+                            📅<strong> Date:</strong>
+                            @item.Date.ToString("dd mm yyyy HH:MM")<br/>
+                            🏃<strong>Distance</strong>@item.Distance
+                        </p>
+                        <p class="card-text">@(item.Description?.Length > 100 ? item.Description[..100] + "..." : item.Description)</p>
+                    </div>
+                    <div class="card-footer bg-blackbg-transparent border-0 bp-3">
+                        <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn-outline-primary w-100">
+                            View Event & Enrol
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

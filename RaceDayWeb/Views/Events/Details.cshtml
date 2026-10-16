@@ -1,0 +1,53 @@
+﻿@model RaceDayWeb.Models.EventViewModel 
+@{
+ViewData["Title"] = Model.Name;
+}
+<div class = "row">
+    <div class="col-md-8" >
+        <div class="card shadow-sm border-0 mc-4"> 
+            <div class="card-body"> 
+                <span class="badge bg-primary mb-2">@Model.EventType</span>
+                <h2 class="card-title text-primary">@Model.Name</h2>
+                <hr />
+                <p>
+                    <strong>Date & Time: </strong> @Model.Date.ToString("f")
+                </p>
+                <p>
+                    <strong>Location:</strong> @Model.Location
+                </p>
+                <p>
+                    <strong>Distance:</strong> @Model.Distance
+                    </p>
+                    <p>
+                        <strong>Description:</strong>
+                        </p>
+                        <p class="text-secondary">@Model.Description</p>
+                    </div> 
+                    </div> 
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0"> 
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    Race Categories &amp; Fees
+
+                                </h5> 
+                                </div>
+                                <div class="card-body p-0">
+                                    @if (Model.Categories == null || !Model.Categories.Any())
+                                    {
+    <p class="p-3 text-muted mb-0">No categories listed yet.</p>
+                    } else
+{
+
+    <ul class ="List-group list-group-flush"> @foreach (var cat in Model.Categories) {
+        <li class="list-group-item d-flex justify-content-between align-items-center"> <div> 
+            <strong>@cat.Name</strong>
+            <div class="small text-muted">@cat.Description</div>
+        </div>
+        <span class="badge  bg-success rounded-pill">R @cat.RegistrationFee</span> </li>
+    }
+</ul>
+}
+</div> <div> <a asp-controller="Enrolments" asp-action="Create" asp-route-eventId="@Model.EventId"
+class="btn btn-success w-100 py-2 ">Enrol in this Race</a> </div> </div> </div> </div>

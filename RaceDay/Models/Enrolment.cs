@@ -1,4 +1,4 @@
-﻿using RaceDay.Models;
+﻿using RaceDayApi.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace RaceDayApi.Models

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<RaceDayWeb.Models.LeaderboardResultViewModel>
+@{
+    ViewData["Title"] = "Race Leaderboard";
+    var eventName = ViewBag.EventName as string ?? "Race Results";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Leaderboard: @eventName</h2>
+    <a asp-controller="Events" asp-action="Index" class="btn btn-outline-secondary">Back to Events</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">No official results have been published for this event yet.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle shadow-sm bg-white rounded">
+            <thead class="table-dark">
+                <tr>
+                    <th>Pos</th>
+                    <th>Participant</th>
+                    <th>Category</th>
+                    <th>Finish Time</th>
+                    <th>Status / Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr class="@(r.IsDisqualified ? "table-danger" : "")">
+                        <td>
+                            @if (r.FinishingPosition == 1)
+                            {
+                                <span class="badge bg-warning text-dark fs-6">🥇 1st</span>
+                            }
+                            else if (r.FinishingPosition == 2)
+                            {
+
+                                <span class="badge bg-secondary fs-6">🥈 2nd</span>
+                            }
+                            else if (r.FinishingPosition == 3)
+                            {
+
+                                <span class="badge bg-dark fs-6">🥉 3rd</span>
+                            }
+                            else
+                            {
+
+                                <strong>@r.FinishingPosition</strong>
+                            }
+                        </td>
+                        <td class="fw-bold">@r.ParticipantName</td>
+                        <td>@r.CategoryName</td>
+                        <td class="font-monospace fs-5">@r.FinishTime</td>
+                        <td>
+                            @if (r.IsDisqualified)
+                            {
+                                <span class="badge bg-danger">Disqualified</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">@(string.IsNullOrEmpty(r.Notes) ? "Official Finisher" : r.Notes)</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
