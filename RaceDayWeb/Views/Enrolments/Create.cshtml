@@ -1,0 +1,36 @@
+﻿@model RaceDayWeb.Models.CreateEnrolmentViewModel
+@{
+    ViewData["Title"] = "Enrol in Event";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Race Enrolment — @Model.EventName</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <input type="hidden" asp-for="EventId" />
+                    <input type="hidden" asp-for="EventName" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="CategoryId" class="form-label font-weight-bold">Select Race Category</label>
+                        <select asp-for="CategoryId" class="form-select form-select-lg">
+                            <option value="">-- Choose Category --</option>
+                            @foreach (var cat in Model.AvailableCategories)
+                            {
+                                <option value="@cat.CategoryId">@cat.Name — R @cat.RegistrationFee</option>
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 fs-5">Confirm Enrolment</button>
+                    <a asp-controller="Events" asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

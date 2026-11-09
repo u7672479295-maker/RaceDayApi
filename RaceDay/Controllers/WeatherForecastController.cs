@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace RaceDay.Controllers
+namespace RaceDayApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -8,7 +8,7 @@ namespace RaceDay.Controllers
     {
         private static readonly string[] Summaries =
         [
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing","Chilly", "Cool", "Mild", "Warm","Hot", "Scorching"
         ];
 
         [HttpGet(Name = "GetWeatherForecast")]

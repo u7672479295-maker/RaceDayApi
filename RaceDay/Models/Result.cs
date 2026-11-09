@@ -6,7 +6,7 @@ namespace RaceDayApi.Models
     public class Result
     {
         public int ResultId { get; set; }
-        public int  Enrolment { get; set;  }
+        public int  EnrolmentId { get; set;  }
 
         [Required, StringLength(50)]
         public string FinishTime { get; set; }

@@ -1,0 +1,10 @@
+@RaceDayApi_HostAddress = http://localhost:5081
+
+GET { { RaceDayApi_HostAddress } }/weatherforecast/ Accept: application/json ### #2. test all get events GET { { RaceDayApi_HostAddress } }/api/events Accept: application/json ### POST { { RaceDayApi_HostAddress } }/api/authentication/register Content-Type: application/json ### {
+  "email": "organiser@raceday.co.za",
+  "password": "Password123!",
+  "firstname": "Sipho",
+  "lastName": "Dlamini",
+  "role": "Organiser"
+
+} ###
